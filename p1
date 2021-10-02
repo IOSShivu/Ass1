@@ -1,3 +1,43 @@
-let i:Int;
-i=2;
-print(i);
+enum numError:Error
+{
+  case negative
+  var msg:String
+  {
+    switch self
+    {
+      case .negative:return "Error:Negative number is not allowed";
+    }
+  }
+}
+
+func num(a:Int) throws
+{
+  if(a<0)
+  {
+    throw numError.negative
+  }
+  else
+  {
+  if(a%2==0)
+  {
+    print("Even number");
+  }
+  else
+  {
+    print("Odd number");
+  }
+}
+}
+do
+{
+  print("Enter the no:");
+  let n=Int(readLine()!);
+  try num(a:n!);  
+}
+catch
+{
+  if let error=error as?numError
+  {
+    print(error.msg);
+  }
+}
